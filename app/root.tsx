@@ -1,6 +1,7 @@
 import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import { json, redirect } from "@remix-run/node";
 import { Form, Links, Meta, NavLink, Outlet, Scripts, ScrollRestoration, useLoaderData, useNavigation, } from "@remix-run/react";
+import { useEffect } from "react";
 
 import { createEmptyContact, getContacts } from "./data";
 
@@ -25,6 +26,13 @@ export const loader = async ({ request, }: LoaderFunctionArgs) => {
 export default function App() {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
+
+  useEffect(() => {
+    const searchField = document.getElementById("q");
+    if (searchField instanceof HTMLInputElement) {
+      searchField.value = q || "";
+    }
+  }, [q]);
   
   return (
     <html lang="en">
