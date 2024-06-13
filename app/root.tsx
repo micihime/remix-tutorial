@@ -109,9 +109,9 @@ export default function App() {
             )}
           </nav>
         </div>
-        <div className={
-          navigation.state === "loading" ? "loading" : ""
-          } id="detail"
+        <div 
+          className={ navigation.state === "loading" && !searching ? "loading" : "" } 
+          id="detail"
         >
           <Outlet />
         </div>
