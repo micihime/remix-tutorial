@@ -1,6 +1,22 @@
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json, redirect } from "@remix-run/node";
-import { Form, Links, Meta, NavLink, Outlet, Scripts, ScrollRestoration, useLoaderData, useNavigation, useSubmit, } from "@remix-run/react";
+import { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
+import {
+  Form,
+  Links,
+  LiveReload,
+  Meta,
+  NavLink,
+  Outlet,
+  Scripts,
+  ScrollRestoration,
+  isRouteErrorResponse,
+  json,
+  redirect,
+  useLoaderData,
+  useNavigation,
+  useRouteError,
+  useSubmit,
+} from "@remix-run/react";
+
 import { useEffect } from "react";
 
 import { createEmptyContact, getContacts } from "./data";
@@ -10,6 +26,7 @@ import appStylesHref from "./app.css?url"; //can be imported as url or inline
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
+
 
 export const action = async () => {
   const contact = await createEmptyContact();
@@ -23,7 +40,7 @@ export const loader = async ({ request, }: LoaderFunctionArgs) => {
   return json({ contacts, q });
 };
 
-export default function App() {
+export function Layout({ children }: { children: React.ReactNode }) {
   const { contacts, q } = useLoaderData<typeof loader>();
   const navigation = useNavigation();
   const submit = useSubmit();
@@ -39,7 +56,7 @@ export default function App() {
       searchField.value = q || "";
     }
   }, [q]);
-  
+
   return (
     <html lang="en">
       <head>
@@ -116,7 +133,7 @@ export default function App() {
           className={ navigation.state === "loading" && !searching ? "loading" : "" } 
           id="detail"
         >
-          <Outlet />
+          {children}
         </div>
 
         <ScrollRestoration />
@@ -124,4 +141,8 @@ export default function App() {
       </body>
     </html>
   );
+}
+
+export default function App() {
+  return <Outlet />;
 }
