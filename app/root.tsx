@@ -2,7 +2,6 @@ import { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
 import {
   Form,
   Links,
-  LiveReload,
   Meta,
   NavLink,
   Outlet,
@@ -26,7 +25,6 @@ import appStylesHref from "./app.css?url"; //can be imported as url or inline
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
 ];
-
 
 export const action = async () => {
   const contact = await createEmptyContact();
@@ -167,4 +165,18 @@ export function ErrorBoundary() {
       <p>{"An error occured..."}</p>
     </>
   );
+}
+
+export function HydrateFallback() {
+  return (
+    <html>
+      <head>
+        <Links />
+      </head>
+      <body>
+        <h1>Loading...</h1>
+        <Scripts />
+      </body>
+    </html>
+  )
 }
