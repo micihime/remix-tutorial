@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 import { createEmptyContact, getContacts } from "./data";
 
-import appStylesHref from "./app.css?url";
+import appStylesHref from "./app.css?url"; //can be imported as url or inline
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: appStylesHref },
