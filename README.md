@@ -1,5 +1,7 @@
 # Welcome to Remix!
 
+Tutorial with contacts, as an example for learning purposes.
+
 - [Remix Docs](https://remix.run/docs)
 
 ## Development
