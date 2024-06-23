@@ -1,6 +1,6 @@
-# Welcome to Remix!
+# Tutorial with contacts
 
-Tutorial with contacts, as an example for learning purposes.
+- as an example for learning purposes.
 
 - [Remix Docs](https://remix.run/docs)
 
